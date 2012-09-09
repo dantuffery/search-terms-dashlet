@@ -3,7 +3,7 @@
 
 The search terms dashlet has been developed for Alfresco's 2012 dashlet challenge. It shows the search terms that have been executed in Alfresco, along with number of filters that give users control over what search terms are displayed.
 
-For more information see the wiki page: 
+For more information see the wiki page: https://github.com/dantuffery/search-terms-dashlet/wiki
 
 ## Prerequisites
 
