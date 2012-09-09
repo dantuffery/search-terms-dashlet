@@ -1,0 +1,63 @@
+<alfresco-config>
+
+	<config replace="true">
+    	<flags>
+        	<!--  Developer debugging setting - DEBUG mode for client scripts in the browser -->
+            <client-debug>true</client-debug>
+
+            <!--  LOGGING can be toggled at runtime when in DEBUG mode (Ctrl, Ctrl, Shift, Shift).
+                 This flag automatically activates logging on page load. -->
+            <client-debug-autologging>false</client-debug-autologging>
+        </flags>
+	</config>
+	
+	<!-- forms for custom type ix:searchTerms -->
+	<config evaluator="node-type" condition="ix:searchTerm">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="cm:name" />
+					<show id="ix:term" />
+					<show id="ix:searchScope" />
+					<show id="ix:searchDate" />
+					<show id="ix:numberOfResults" />
+				
+					<hide id="ix:userName" />
+					<hide id="cm:title"/>
+                	<hide id="cm:description"/>
+                	<hide id="mimetype" />
+                	<hide id="cm:author" />
+                	<hide id="cm:creator" />
+                	<hide id="cm:created" />
+                	<hide id="cm:modifier"/>
+                	<hide id="cm:modified"/>
+                </field-visibility>
+			</form>
+		</forms>
+	</config>
+	
+	<config evaluator="model-type" condition="ix:searchTerm">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="cm:name" />
+					<show id="ix:term" />
+					<show id="ix:searchScope" />
+					<show id="ix:searchDate" />
+					<show id="ix:numberOfResults" />
+				
+					<hide id="ix:userName" />
+					<hide id="cm:title"/>
+                	<hide id="cm:description"/>
+                	<hide id="mimetype" />
+                	<hide id="cm:author" />
+                	<hide id="cm:creator" />
+                	<hide id="cm:created" />
+                	<hide id="cm:modifier"/>
+                	<hide id="cm:modified"/>
+                </field-visibility>
+			</form>
+		</forms>
+	</config>
+	
+</alfresco-config>

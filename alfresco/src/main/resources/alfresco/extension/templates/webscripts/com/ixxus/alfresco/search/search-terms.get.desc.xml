@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Get search terms</shortname>
+  	<description>Get a collection of search terms that are stored in the repository</description>
+  	<url>/search/search-terms/{searchScope}/{dateFilter}/{userSearch}/{maxItems}/{zeroResults}</url>
+  	<format default="json">argument</format>
+  	<authentication>user</authentication>
+  	<transaction allow="readonly">required</transaction>
+</webscript>

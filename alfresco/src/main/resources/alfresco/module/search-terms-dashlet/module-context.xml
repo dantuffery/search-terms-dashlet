@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+	<bean id="solrSearchActionPropertyConfigurer" 
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name="ignoreUnresolvablePlaceholders">
+    		<value>true</value>
+    	</property>
+		<property name="locations">
+			<list>
+				<value>classpath:alfresco/module/search-terms-dashlet/search-term.properties</value>
+			</list>
+		</property>
+    </bean>
+    
+	<!-- Bootstrap -->
+    <bean id="ixxus.dictionaryBootstrap" parent="dictionaryModelBootstrap" 
+    	depends-on="dictionaryBootstrap">
+        <property name="models">
+            <list>
+            	<value>alfresco/module/search-terms-dashlet/model/content-model.xml</value>
+            </list>
+        </property>
+    </bean>        
+    
+    <!-- Services --> 
+    <bean id="searchTermService" class="com.ixxus.alfresco.search.service.SearchTermServiceImpl">
+    	<property name="transactionService" ref="transactionService" />
+    	<property name="fileFolderService" ref="fileFolderService" />
+    	<property name="contentService" ref="contentService" />
+    	<property name="nodeService" ref="nodeService" />
+    	<property name="repository" ref="repositoryHelper"/>
+    	<property name="maxNumberOfDays" value="${search.term.maxNumberofdays}"/>
+    	<property name="searchTermsFolderPath" value="${search.term.service.searchTermsFolderPath}"/>
+    </bean> 
+    
+    <!--  JScript bean -->
+    <bean id="searchScript" parent="baseJavaScriptExtension" class="com.ixxus.alfresco.search.jscript.TermsSearch">
+        <property name="searchSubsystemSwitchableApplicationContextFactory" ref="Search" />
+        <property name="serviceRegistry" ref="ServiceRegistry"/>
+        <property name="repositoryHelper" ref="repositoryHelper"/>
+        <property name="storeUrl" value="${spaces.store}"/>
+        <property name="extensionName" value="search"/>
+    </bean>
+    
+    <!-- cron job beans -->
+    <bean id="saveJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+  		<property name="targetObject" ref="searchTermService"/>
+  		<property name="targetMethod" value="saveJobExecute"/>
+  		<property name="concurrent" value="false"/>
+	</bean>
+	
+	<bean id="saveCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+  		<property name="jobDetail" ref="saveJobDetail"/>
+  		<property name="cronExpression">
+  			<value>${search.term.service.savejob.cron}</value>
+  		</property>
+	</bean>
+	
+	<bean id="deleteJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+  		<property name="targetObject" ref="searchTermService"/>
+  		<property name="targetMethod" value="deleteJobExecute"/>
+  		<property name="concurrent" value="false"/>
+	</bean>
+	
+	<bean id="deleteCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+  		<property name="jobDetail" ref="deleteJobDetail"/>
+  		<property name="cronExpression">
+  			<value>${search.term.service.deletejob.cron}</value>
+  		</property>
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+  		<property name="triggers">
+    		<list>
+      			<ref bean="saveCronTrigger"/>
+      			<ref bean="deleteCronTrigger"/>
+    		</list>
+  		</property>
+	</bean>               
+	                       
+</beans>

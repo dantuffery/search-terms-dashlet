@@ -1,0 +1,41 @@
+.search-terms ul
+{
+    margin: 0;
+    padding: 0;
+}
+
+.checkbox-filter
+{
+	padding-left: 15px;
+	padding-top:5px;
+}
+
+.checkbox-filter label
+{
+	vertical-align:6px;
+	color: #000000;
+    font-size: 93%;
+    min-height: 2em;
+}
+
+.checkbox-filter input
+{
+	vertical-align:6px;
+}
+
+.admin-toolbar span
+{
+	padding-left: 15px;
+	padding-top:5px;
+}
+
+.admin-toolbar span label
+{
+	vertical-align:2px;
+	color: #000000;
+    font-size: 93%;
+    min-height: 2em;
+    float:left;
+}
+
+

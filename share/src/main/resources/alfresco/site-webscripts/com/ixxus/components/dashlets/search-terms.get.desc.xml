@@ -1,0 +1,6 @@
+<webscript>
+   <shortname>Search Terms</shortname>
+   <description>Lists search terms that can be filtered by search scope, user, and date range.</description>
+   <family>user-dashlet</family>
+   <url>/components/dashlets/search-terms</url>
+</webscript>

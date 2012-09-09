@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+		 
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.ixxus</groupId>
+		<artifactId>search-terms-dashlet</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	
+	<name>Search Terms Dashlet Alfresco AMP</name>
+    <description>Alfresco AMP for the Search Terms Dashlet Project </description>	
+
+	<groupId>com.ixxus</groupId>
+	<artifactId>search-terms-dashlet-alfresco</artifactId>
+	<packaging>amp</packaging>
+	
+	<properties>
+        <webapp.name>alfresco</webapp.name>
+		<module.id>search-terms-dashlet</module.id>
+        <module.log.level>warn</module.log.level>
+    </properties>
+	
+	<!--
+		Include libs that the AMP will use. Alfresco SDK libs by default. 
+		They are provided by Alfresco during runtime so scope should be set as provided.
+		(if in doubt then check for the lib in tomcat/webapps/alfresco/WEB-INF/lib, if it's there then it's provided).
+	-->
+	<dependencies>
+		<!-- Include JAR that has classes such as AlfrescoRuntimeException -->
+        <dependency>
+            <groupId>${alfresco.groupId}</groupId> 
+            <artifactId>alfresco-core</artifactId>
+            <version>${alfresco.version}</version>
+            <scope>provided</scope>
+        </dependency>
+		<!-- Include JAR that has classes such as ForumModel, AbstractContentTransformer, ExporterComponent, RetryingTransactionHelper, NodeServicePolicies -->
+        <dependency>
+            <groupId>${alfresco.groupId}</groupId> 
+			<artifactId>alfresco-repository</artifactId>
+			<version>${alfresco.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Include JAR that has classes such as NodeService, SearchService, DictionaryService, StoreRef, NodeRef, and ContentModel -->
+		<dependency>
+            <groupId>${alfresco.groupId}</groupId> 
+			<artifactId>alfresco-data-model</artifactId>
+			<version>${alfresco.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+			<scope>provided</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+		<!-- Include Spring Webscripts so we can write Java based web scripts, includes classes such as AbstractWebScript, WebScriptRequest, WebScriptException -->
+		<dependency>
+			<groupId>org.springframework.extensions.surf</groupId>
+			<artifactId>spring-webscripts</artifactId>
+			<version>1.0.0</version>
+            <scope>provided</scope>
+		</dependency>		
+
+		<!-- Include Apache Commons Lang so classes such as StringUtils can be used -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>com.springsource.org.apache.commons.lang</artifactId>
+			<version>2.5.0</version>
+            <scope>provided</scope>
+		</dependency>
+		
+		<dependency> 
+			<groupId>org.json</groupId>
+  			<artifactId>json</artifactId>
+  			<version>20090211</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- Include JUnit so we can write Java unit tests -->
+		<dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+		
+	</dependencies>
+
+	<build>
+		
+        <plugins>
+        	
+			<!-- Strip off -SNAPSHOT from version and put this in the noSnapshotVersion variable -->
+            <plugin>
+				<artifactId>maven-nosnapshot-plugin</artifactId>
+				<groupId>org.alfresco.maven</groupId>
+				 <version>0.0.8</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>strip</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<!-- Compile java classes -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			
+			<!-- Run JUnit Tests (config in parent POM) -->
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>			
+			
+			<!--Package the AMP -->
+			<plugin>
+				<groupId>org.alfresco.maven.plugin</groupId>
+				<artifactId>maven-amp-plugin</artifactId>
+				<version>3.0.4</version>
+				<extensions>true</extensions>
+				<configuration>
+					<mModuleProperties>src/main/resources/alfresco/module/search-terms-dashlet/module.properties</mModuleProperties>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

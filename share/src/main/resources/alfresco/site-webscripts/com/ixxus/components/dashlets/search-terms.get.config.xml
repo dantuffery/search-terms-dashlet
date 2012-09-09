@@ -1,0 +1,20 @@
+<config>
+	<filter-range>
+    	<filter type="0" label="today" />
+      	<filter type="7" label="7days" />
+      	<filter type="14" label="14days" />
+      	<filter type="28" label="28days" />
+   	</filter-range>
+   	<filter-search-scope>
+    	<filter type="all" label="All Search Scopes"/>
+      	<filter type="repo" label="Repo Search Scope"/>
+      	<filter type="allSites" label="All Sites Search Scope"/>
+   	</filter-search-scope>
+   	<filter-max-items> 
+   		<filter type="20" label="twenty"/>
+   		<filter type="40" label="forty" />
+   		<filter type="60" label="sixty" />
+   		<filter type="80" label="eighty" />
+   		<filter type="100" label="onehundred" />
+   	</filter-max-items>
+</config>

@@ -1,0 +1,1 @@
+if(typeof Ixxus==="undefined"||!Ixxus){var Ixxus={}}Ixxus.component=Ixxus.component||{};Ixxus.dashlet=Ixxus.dashlet||{};Ixxus.module=Ixxus.module||{};(function(){Ixxus.component.Base=function a(b,d,c){Ixxus.component.Base.superclass.constructor.call(this,b,d,c);return this};YAHOO.extend(Ixxus.component.Base,Alfresco.component.Base,{})})();
