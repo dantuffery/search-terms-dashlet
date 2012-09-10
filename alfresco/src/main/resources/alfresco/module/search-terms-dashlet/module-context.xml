@@ -34,7 +34,7 @@
     	<property name="contentService" ref="contentService" />
     	<property name="nodeService" ref="nodeService" />
     	<property name="repository" ref="repositoryHelper"/>
-    	<property name="maxNumberOfDays" value="${search.term.maxNumberofdays}"/>
+    	<property name="maxNumberOfDays" value="${search.term.maxNumberOfDays}"/>
     	<property name="searchTermsFolderPath" value="${search.term.service.searchTermsFolderPath}"/>
     </bean> 
     

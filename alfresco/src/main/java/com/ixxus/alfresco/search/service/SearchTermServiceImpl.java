@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.StringTokenizer;
@@ -19,12 +20,14 @@ import org.alfresco.repo.security.permissions.AccessDeniedException;
 import org.alfresco.repo.transaction.RetryingTransactionHelper.RetryingTransactionCallback;
 import org.alfresco.service.cmr.model.FileFolderService;
 import org.alfresco.service.cmr.model.FileInfo;
+import org.alfresco.service.cmr.repository.ChildAssociationRef;
 import org.alfresco.service.cmr.repository.ContentService;
 import org.alfresco.service.cmr.repository.ContentWriter;
 import org.alfresco.service.cmr.repository.NodeRef;
 import org.alfresco.service.cmr.repository.NodeService;
 import org.alfresco.service.namespace.NamespaceService;
 import org.alfresco.service.namespace.QName;
+import org.alfresco.service.namespace.RegexQNamePattern;
 import org.alfresco.service.transaction.TransactionService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -419,9 +422,8 @@ public class SearchTermServiceImpl implements SearchTermService
 			return null;
 		}
 		
-		NodeRef currentSearchTermsFolder = 
-			nodeService.getChildByName(searchTermsFolder, ContentModel.TYPE_FOLDER, currentSearchTermsFolderName);
-		
+		NodeRef currentSearchTermsFolder = getCurrentFolderNodeRef(searchTermsFolder, currentSearchTermsFolderName);
+
 		//If current search term folder doesn't exist create it.
 		if(currentSearchTermsFolder == null)
 		{
@@ -437,6 +439,31 @@ public class SearchTermServiceImpl implements SearchTermService
 		{
 			logger.debug("Current folder node ref is " + currentSearchTermsFolder.toString());
 		}
+		return currentSearchTermsFolder;
+	}
+	
+	/**
+	 * Returns current folder NodeRef
+	 * 
+	 * @param parent
+	 * @param folderName
+	 * @return NodeRef
+	 */
+	public NodeRef getCurrentFolderNodeRef(NodeRef parent, String folderName)
+	{
+		List<ChildAssociationRef> children = 
+				nodeService.getChildAssocs(parent, ContentModel.ASSOC_CONTAINS, RegexQNamePattern.MATCH_ALL);
+		
+		NodeRef currentSearchTermsFolder = null;
+		for(ChildAssociationRef child : children)
+		{
+			if(nodeService.getProperty(child.getChildRef(), ContentModel.PROP_NAME).equals(folderName))
+			{
+				currentSearchTermsFolder = child.getChildRef();
+				break;
+			}
+		}
+		
 		return currentSearchTermsFolder;
 	}
 	
@@ -460,8 +487,10 @@ public class SearchTermServiceImpl implements SearchTermService
 		
 		Date deleteDate = getDeleteDate();
 		String nameOfFolderToDelete = getFolderName(deleteDate);
-		NodeRef folderToDelete = nodeService.getChildByName(searchTermsFolder, 
-				ContentModel.TYPE_FOLDER, nameOfFolderToDelete);
+		
+		NodeRef folderToDelete = 
+				getCurrentFolderNodeRef(searchTermsFolder, nameOfFolderToDelete);
+
 		
 		if(folderToDelete == null)
 		{
