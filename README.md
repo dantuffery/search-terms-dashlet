@@ -13,7 +13,7 @@ Maven has been chosen as the build tool for this project, so you will also need 
 
 ## Install
 
-Once you have pulled the code from git, navigate to the project’s root folder ‘ix-search-terms-dashlet’ via the command line. There are two sub-folders within the root folder: ‘alfresco’ and ‘share’. To build the ‘alfresco’ and ‘share’ amps run the following maven command:
+Once you have pulled the code from git, navigate to the project’s root folder ‘search-terms-dashlet’ via the command line. There are two sub-folders within the root folder: ‘alfresco’ and ‘share’. To build the ‘alfresco’ and ‘share’ amps run the following maven command:
 
 <pre><code>mvn clean package</code></pre>
 
@@ -31,4 +31,4 @@ Place the 'search-terms-dashlet-alfresco-1.0-SNAPSHOT.amp' and 'search-terms-das
 
 Run the apply-amps.bat/apply-amps.sh file in your Alfresco installation.
 
-Start alfresco.
+Start Alfresco.
