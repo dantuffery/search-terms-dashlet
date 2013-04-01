@@ -25,18 +25,27 @@
             	<value>alfresco/module/search-terms-dashlet/model/content-model.xml</value>
             </list>
         </property>
-    </bean>        
+    </bean>  
+    
+    <!-- Search Query Parser -->    
+    <bean id="searchQueryParser" class="com.ixxus.alfresco.parsers.SearchQueryParserImpl"/>  
     
     <!-- Services --> 
     <bean id="searchTermService" class="com.ixxus.alfresco.search.service.SearchTermServiceImpl">
+        <property name="searchTermFolderService" ref="searchTermFolderService"/>
     	<property name="transactionService" ref="transactionService" />
-    	<property name="fileFolderService" ref="fileFolderService" />
+        <property name="searchQueryParser" ref="searchQueryParser"/>
     	<property name="contentService" ref="contentService" />
-    	<property name="nodeService" ref="nodeService" />
-    	<property name="repository" ref="repositoryHelper"/>
+        <property name="nodeService" ref="nodeService" />
     	<property name="maxNumberOfDays" value="${search.term.maxNumberOfDays}"/>
-    	<property name="searchTermsFolderPath" value="${search.term.service.searchTermsFolderPath}"/>
     </bean> 
+    
+    <bean id="searchTermFolderService" class="com.ixxus.alfresco.search.service.SearchTermFolderServiceImpl">
+        <property name="fileFolderService" ref="fileFolderService" />
+        <property name="nodeService" ref="nodeService" />
+        <property name="repository" ref="repositoryHelper"/>
+        <property name="searchTermsFolderPath" value="${search.term.service.searchTermsFolderPath}"/>
+    </bean>
     
     <!--  JScript bean -->
     <bean id="searchScript" parent="baseJavaScriptExtension" class="com.ixxus.alfresco.search.jscript.TermsSearch">

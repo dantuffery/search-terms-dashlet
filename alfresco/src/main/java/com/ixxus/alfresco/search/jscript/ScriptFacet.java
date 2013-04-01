@@ -25,7 +25,7 @@ public class ScriptFacet implements Scopeable, NamespacePrefixResolverProvider{
     private FieldFacet facetField;
     private ServiceRegistry services;
     private List<Pair<String, Integer>> facetList;
-    private Boolean facetHasAnyHits;
+    private boolean facetHasAnyHits;
 
     
     public ScriptFacet(FieldFacet facetField, List<Pair<String, Integer>> facetList, Scriptable scope, ServiceRegistry services)
@@ -68,9 +68,9 @@ public class ScriptFacet implements Scopeable, NamespacePrefixResolverProvider{
 	 * false Boolean value is returned to indicate that the facet should 
 	 * not be displayed.
 	 *  
-	 * @return Boolean
+	 * @return boolean
 	 */
-	public Boolean getFacetHasAnyHits() 
+	public boolean getFacetHasAnyHits() 
 	{
 		if(this.facetList != null && facetList.size() > 0 )
 		{

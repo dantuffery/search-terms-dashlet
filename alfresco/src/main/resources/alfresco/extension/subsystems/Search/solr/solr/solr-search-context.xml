@@ -3,12 +3,12 @@
 
 <beans>
 
-    <!-- custom solr http client  -->
-	<bean id="search.solrQueryHTTPCLient" class="com.ixxus.alfresco.search.solr.SearchTermsSolrQueryHTTPClient" init-method="init">
-        <property name="httpClientFactory" ref="solrHttpClientFactory"/>
+    <!-- Custom Solr HTTP Client  -->
+    <bean id="search.solrQueryHTTPCLient" class="com.ixxus.alfresco.search.solr.SearchTermsSolrQueryHTTPClient" init-method="init">
         <property name="nodeService"  ref="mlAwareNodeService" />
         <property name="permissionService" ref="permissionService" />
         <property name="tenantService" ref="tenantService" />
+        <property name="repositoryState" ref="repositoryState" />
         <property name="authenticationService" ref="authenticationService"/>
         <property name="searchTermService" ref="searchTermService" />
         <property name="languageMappings">
@@ -23,10 +23,10 @@
             </map>
         </property>
         <property name="storeMappings">
-            <map>
-                <entry key="workspace://SpacesStore" value="alfresco" />
-                <entry key="archive://SpacesStore" value="archive" />
-            </map>
+            <ref bean="solr.store.mappings" />
+        </property>
+        <property name="includeGroupsForRoleAdmin">
+         <value>${solr.query.includeGroupsForRoleAdmin}</value>
         </property>
     </bean>
 

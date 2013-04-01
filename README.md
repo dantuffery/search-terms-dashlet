@@ -11,6 +11,10 @@ The search terms dashlet uses Solr’s faceting and filter query functionality, 
 
 Maven has been chosen as the build tool for this project, so you will also need to have Maven installed to build the project amps.
 
+## Alfresco version
+
+The Search Terms dashlet has been upgraded to work with alfresco-community-4.2.c
+
 ## Install
 
 Once you have pulled the code from git, navigate to the project’s root folder ‘search-terms-dashlet’ via the command line. There are two sub-folders within the root folder: ‘alfresco’ and ‘share’. To build the ‘alfresco’ and ‘share’ amps run the following maven command:

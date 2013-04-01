@@ -15,7 +15,6 @@
 
 	<groupId>com.ixxus</groupId>
 	<artifactId>search-terms-dashlet-alfresco</artifactId>
-	<packaging>amp</packaging>
 	
 	<properties>
         <webapp.name>alfresco</webapp.name>
@@ -74,19 +73,32 @@
 
 		<!-- Include Apache Commons Lang so classes such as StringUtils can be used -->
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>com.springsource.org.apache.commons.lang</artifactId>
-			<version>2.5.0</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
+        </dependency>
+        
+         <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
             <scope>provided</scope>
-		</dependency>
-		
+         </dependency>
+         
 		<dependency> 
 			<groupId>org.json</groupId>
   			<artifactId>json</artifactId>
   			<version>20090211</version>
 			<scope>provided</scope>
 		</dependency>
-		
+      
+        <dependency>
+         <groupId>org.apache.commons</groupId>
+         <artifactId>com.springsource.org.apache.commons.lang</artifactId>
+         <version>2.5.0</version>
+            <scope>provided</scope>
+      </dependency>
+            
 		<!-- Include JUnit so we can write Java unit tests -->
 		<dependency>
             <groupId>junit</groupId>
@@ -94,6 +106,14 @@
             <version>4.8.2</version>
             <scope>test</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.8.4</version>
+            <scope>test</scope>
+        </dependency>
+            
 		
 	</dependencies>
 

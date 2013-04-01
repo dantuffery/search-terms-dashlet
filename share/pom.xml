@@ -14,7 +14,7 @@
 
 	<groupId>com.ixxus</groupId>
 	<artifactId>search-terms-dashlet-share</artifactId>
-	<packaging>amp</packaging>
+	<packaging>jar</packaging>
 	
 	<properties>
         <webapp.name>share</webapp.name>
